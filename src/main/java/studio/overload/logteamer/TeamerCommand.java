@@ -54,7 +54,13 @@ public class TeamerCommand {
                                         .executes(TeamerCommand::setStyleShowName)))
                         .then(Commands.literal("icon")
                                 .then(Commands.argument("url_or_preset", StringArgumentType.greedyString())
-                                        .executes(TeamerCommand::setStyleIcon)))));
+                                        .executes(TeamerCommand::setStyleIcon)))
+                        .then(Commands.literal("icolor")
+                                .then(Commands.argument("hex", StringArgumentType.word())
+                                        .executes(TeamerCommand::setStyleIconColor)))
+                        .then(Commands.literal("imask")
+                                .then(Commands.argument("enabled", com.mojang.brigadier.arguments.BoolArgumentType.bool())
+                                        .executes(TeamerCommand::setStyleIconMask))));
     }
 
     private static TeamManager getManager(CommandSourceStack source) {

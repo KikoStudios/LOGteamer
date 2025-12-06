@@ -91,6 +91,8 @@ public class Team {
     private int color = 0xFFFFFF; // Default White
     private boolean showSuffix = false;
     private String icon = "";
+    private int iconColor = -1; // -1 means use Team Color
+    private boolean iconMask = false;
 
     // ... existing constructor ...
 
@@ -118,6 +120,22 @@ public class Team {
         this.icon = icon;
     }
 
+    public int getIconColor() {
+        return iconColor;
+    }
+
+    public void setIconColor(int iconColor) {
+        this.iconColor = iconColor;
+    }
+
+    public boolean isIconMask() {
+        return iconMask;
+    }
+
+    public void setIconMask(boolean iconMask) {
+        this.iconMask = iconMask;
+    }
+
     public CompoundTag save() {
         CompoundTag tag = new CompoundTag();
         tag.putString("Name", name);
@@ -126,6 +144,8 @@ public class Team {
         tag.putInt("Color", color);
         tag.putBoolean("ShowSuffix", showSuffix);
         tag.putString("Icon", icon);
+        tag.putInt("IconColor", iconColor);
+        tag.putBoolean("IconMask", iconMask);
 
         ListTag memberList = new ListTag();
         for (UUID member : members) {
@@ -156,6 +176,10 @@ public class Team {
             team.setShowSuffix(tag.getBoolean("ShowSuffix"));
         if (tag.contains("Icon"))
             team.setIcon(tag.getString("Icon"));
+        if (tag.contains("IconColor"))
+            team.setIconColor(tag.getInt("IconColor"));
+        if (tag.contains("IconMask"))
+            team.setIconMask(tag.getBoolean("IconMask"));
 
         ListTag memberList = tag.getList("Members", Tag.TAG_STRING);
         team.members.clear(); // Clear default captain add
